@@ -1,0 +1,41 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "WorkloadIdentityAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock-agentcore:GetWorkloadAccessToken",
+        "bedrock-agentcore:GetApiKeyCredential"
+      ],
+      "Resource": "arn:aws:bedrock-agentcore:us-east-1:016091700700:workload-identity-directory/default"
+    },
+    {
+      "Sid": "SecretsManagerAccess",
+      "Effect": "Allow",
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "arn:aws:secretsmanager:us-east-1:016091700700:secret:*"
+    },
+    {
+      "Sid": "BedrockAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "GatewayDeletionAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock-agentcore:DeleteGateway",
+        "bedrock-agentcore:DeleteGatewayTarget",
+        "bedrock-agentcore:ListGatewayTargets",
+        "bedrock-agentcore:GetGateway",
+        "bedrock-agentcore:ListGateways"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

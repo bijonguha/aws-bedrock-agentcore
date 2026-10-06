@@ -1,0 +1,114 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BedrockModels",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream",
+        "bedrock:List*",
+        "bedrock:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AgentCore",
+      "Effect": "Allow",
+      "Action": "bedrock-agentcore:*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "DeployToolkit",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:*",
+        "codebuild:*",
+        "s3:*",
+        "logs:*",
+        "xray:*",
+        "cloudwatch:*",
+        "application-signals:*",
+        "lambda:*",
+        "cognito-idp:*",
+        "secretsmanager:*",
+        "sts:GetCallerIdentity"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageAgentRolesOnly",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:GetRole",
+        "iam:DeleteRole",
+        "iam:PutRolePolicy",
+        "iam:GetRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:AttachRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies",
+        "iam:PassRole",
+        "iam:TagRole"
+      ],
+      "Resource": [
+        "arn:aws:iam::016091700700:role/AmazonBedrockAgentCore*",
+        "arn:aws:iam::016091700700:role/agentcore-*",
+        "arn:aws:iam::016091700700:role/AgentCore*",
+        "arn:aws:iam::016091700700:role/service-role/*"
+      ]
+    },
+    {
+      "Sid": "ServiceLinkedRoles",
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "arn:aws:iam::016091700700:role/aws-service-role/*",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": [
+            "bedrock-agentcore.amazonaws.com",
+            "application-signals.cloudwatch.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "LabRegionOnly",
+      "Effect": "Deny",
+      "NotAction": [
+        "iam:*",
+        "sts:*",
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": [
+            "us-east-1"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "BedrockInvokeUSRegionsOnly",
+      "Effect": "Deny",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": [
+            "us-east-1",
+            "us-east-2",
+            "us-west-2"
+          ]
+        }
+      }
+    }
+  ]
+}

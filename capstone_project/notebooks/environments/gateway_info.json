@@ -1,0 +1,16 @@
+{
+  "gateway_name": "TravelMateGateway",
+  "gateway_id": "travelmategateway-jcw2pe0wps",
+  "mcp_endpoint": "https://travelmategateway-jcw2pe0wps.gateway.bedrock-agentcore.us-east-1.amazonaws.com/mcp",
+  "region": "us-east-1",
+  "oauth_client_id": "22mbg7u8vcdueji727fof2mt7s",
+  "oauth_client_secret": "1303mt2kltthomof1k4mcdeaioga0qqnma65kseeqd1q69gp2e2n",
+  "oauth_scope": "TravelMateGateway/invoke",
+  "available_tools": [
+    "FlightSearch___getFlights",
+    "WeatherSearch___getCurrentWeather",
+    "WeatherSearch___getWeatherForecast",
+    "ExchangeRate___getExchangeRates",
+    "ExchangeRate___convertCurrency"
+  ]
+}
